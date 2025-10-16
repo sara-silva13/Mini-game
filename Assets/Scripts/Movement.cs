@@ -9,16 +9,15 @@ public class Movement : MonoBehaviour
 
     private CharacterController controller;
     
-    private float baseMoveSpeed = 5f;
-    public float moveSpeed = 5f;
-    private Player_Charger player_Charger;
+    private float moveSpeed = 5f;
+    private Enemy_Health player_Charger;
     private Vector3 moveDirection;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
     
-        player_Charger = GetComponent<Player_Charger>();
+        player_Charger = GetComponent<Enemy_Health>();
     }
 
     void Update()
@@ -45,7 +44,6 @@ public class Movement : MonoBehaviour
         // Mover o jogador
         if (moveDirection.magnitude > 0f)
         {
-            moveSpeed = baseMoveSpeed * (0.25f * player_Charger.charge + 0.75f);
             Vector3 movement = moveDirection * moveSpeed * Time.deltaTime;
 
             if (controller != null)
