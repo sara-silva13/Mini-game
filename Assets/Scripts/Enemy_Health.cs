@@ -14,7 +14,7 @@ public class Enemy_Health : MonoBehaviour
         if (other.gameObject.name.ToLower().Contains("scrap"))
         {
             enemyPointsQty++;
-            enemyPointsUI.text = enemyPointsQty.ToString();
+            enemyPointsUI.text = enemyPointsQty == 1 ? "I" : enemyPointsQty.ToString();
 
             Destroy(other.gameObject);
         }
