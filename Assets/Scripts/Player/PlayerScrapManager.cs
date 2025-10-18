@@ -18,12 +18,13 @@ public class PlayerScrapManager : MonoBehaviour
     private int scrapQty = 0;
     private readonly int scrapMaxQty = 2;
 
-    private float throwForce = 15f;
+    private float throwForce = 17.5f;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (scrapQty < scrapMaxQty && other.gameObject.name.ToLower().Contains("pickup")) //!!! Do: Pick-Up only if looking in the direction of the obj being picked
+        if (scrapQty < scrapMaxQty && other.gameObject.name.ToLower().Contains("pickup"))
         {
+            Debug.Log("a");
             holdPickUpObj = other.transform.parent.transform;
 
             canPickUp = true;
@@ -55,25 +56,34 @@ public class PlayerScrapManager : MonoBehaviour
         if (Input.GetKeyDown(scrapInput))
         {
             if (canPickUp)
-                PickUp();
-            else if (scrapQty > 0)
+            {
+                // Direction from player to pickup
+                Vector3 toObject = (holdPickUpObj.transform.position - transform.position).normalized;
+                float facingDot = Vector3.Dot(transform.forward, toObject);
+
+                // Require player to be looking roughly toward the object (e.g. within ~60°)
+                if (facingDot <= 0.5f)
+                {
+                    PickUp();
+                    return;
+                }
+
+            }
+
+            if (scrapQty > 0)
+            {
                 Throw();
+                return;
+            }
         }
     }
 
     private void PickUp()
     {
-        // Direction from player to pickup
-        Vector3 toObject = (holdPickUpObj.transform.position - transform.position).normalized;
-        float facingDot = Vector3.Dot(transform.forward, toObject);
-
-        // Require player to be looking roughly toward the object (e.g. within ~60°)
-        if (facingDot <= 0.5f)
-            return;
-
         scrapDropper.SpawnAndDrop(holdPickUpObj.transform.position);
 
         Destroy(holdPickUpObj.gameObject);
+        holdPickUpObj = null;
 
         foreach (Transform child in transform)
         {
@@ -83,20 +93,15 @@ public class PlayerScrapManager : MonoBehaviour
                 if (grandChild.childCount != 0)
                     grandChild = child.GetChild(1);
 
+                Transform scrapTrans = Instantiate(scrapPreFab, grandChild).transform;
+
+                BoxCollider boxCollider = scrapTrans.transform.GetChild(0).GetComponent<BoxCollider>();
+                boxCollider.enabled = false;
+
                 if (pickUpObjTrans == null)
-                {
-                    pickUpObjTrans = Instantiate(scrapPreFab, grandChild).transform;
-                    BoxCollider boxCollider = pickUpObjTrans.GetComponentInChildren<BoxCollider>();
-                    boxCollider.enabled = false;
-                }
+                    pickUpObjTrans = scrapTrans;
                 else
-                {
-                    pickUpObj2Trans = Instantiate(scrapPreFab, grandChild).transform;
-                    BoxCollider boxCollider = pickUpObj2Trans.GetComponentInChildren<BoxCollider>();
-                    boxCollider.enabled = false;
-                }
-
-
+                    pickUpObj2Trans = scrapTrans;
 
                 break;
             }
@@ -110,14 +115,16 @@ public class PlayerScrapManager : MonoBehaviour
 
     private void Throw()
     {
-        Transform objToThrow = null;
+        Transform objToThrow;
 
         if (pickUpObj2Trans != null)
             objToThrow = pickUpObj2Trans;
         else
             objToThrow = pickUpObjTrans;
 
-        objToThrow.GetComponent<SphereCollider>().enabled = true;
+        BoxCollider col = objToThrow.GetComponent<BoxCollider>();
+        col.enabled = true;
+        col.isTrigger = true;
 
         bool objOnRight = objToThrow.parent.localPosition.x > 0f;
         int side = objOnRight ? -1 : 1;
@@ -126,9 +133,9 @@ public class PlayerScrapManager : MonoBehaviour
         objToThrow.SetParent(null);
         Rigidbody objRb = objToThrow.GetComponent<Rigidbody>();
         objRb.isKinematic = false;
-        //objRb.AddForce(transform.forward * (throwForce + playerMoveInfo.moveSpeed), ForceMode.VelocityChange); 
+        objRb.useGravity = true;
 
-        Vector3 throwDirection = Quaternion.AngleAxis(angle, Vector3.up) * transform.forward;
+        Vector3 throwDirection = Quaternion.AngleAxis(angle, Vector3.up) * -transform.forward;
         objRb.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
 
 

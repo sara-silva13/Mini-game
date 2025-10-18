@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI enemyPointsUI;
 
-    private int enemyPointsQty = 0;
+    public int pointsQty = 0;
+
+    private void Start()
+    {
+        if (gameObject.name.Contains("2"))
+            pointsQty = 2;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.ToLower().Contains("scrap"))
         {
-            enemyPointsQty++;
-            enemyPointsUI.text = enemyPointsQty == 1 ? "I" : enemyPointsQty.ToString();
+            pointsQty++;
+            string pointsText = pointsQty.ToString();
+            pointsText = pointsText.Replace("1", "I");
+            enemyPointsUI.text = pointsText;
 
             Destroy(other.gameObject);
         }

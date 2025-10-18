@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
                 transform.Translate(movement, Space.World);
 
             // Faz o jogador olhar na direção do movimento
-            transform.forward = moveDirection;
+            transform.forward = -moveDirection;
         }
     }
 }

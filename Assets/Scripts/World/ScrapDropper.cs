@@ -19,9 +19,9 @@ public class ScrapDropper : MonoBehaviour
         Vector3 spawnPos = finalPosition + Vector3.up * heightOffset;
 
         // 2. Instantiate the object
-        GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
-        
-        BoxCollider boxCollider = obj.GetComponentInChildren<BoxCollider>();
+        GameObject obj = Instantiate(prefab, spawnPos, Quaternion.Euler(-90f, 0f, 0f));
+
+        BoxCollider boxCollider = obj.transform.GetChild(0).GetComponent<BoxCollider>();
         boxCollider.enabled = false;
 
         // 3. Choose a random duration (between 2 and 3 seconds)
