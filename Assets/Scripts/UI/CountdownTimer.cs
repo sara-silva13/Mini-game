@@ -23,7 +23,6 @@ public class CountdownTimer : MonoBehaviour
         {
             timer = 0f;
             running = false;
-
             EndGame();
         }
 
@@ -35,20 +34,14 @@ public class CountdownTimer : MonoBehaviour
         int player1Points = player1Health.pointsQty;
         int player2Points = player2Health.pointsQty;
 
-        string playerName = "";
         Transform winnerTrans = null;
+        player1Points++; //!!! remove this
         if (player1Points != player2Points)
         {
             if (player1Points > player2Points)
-            {
-                playerName = "1";
                 winnerTrans = player2Health.transform;
-            }
             else
-            {
-                playerName = "2";
                 winnerTrans = player1Health.transform;
-            }
         }
 
         if (winnerTrans == null)
