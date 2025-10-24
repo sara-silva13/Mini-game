@@ -9,6 +9,8 @@ public class ScrapDropper : MonoBehaviour
     // Call this method to trigger a new drop
     public void SpawnAndDrop(Vector3 finalPosition)
     {
+        AudioManager.Instance.PlayOneShotAtPosition(AudioManager.Instance.scrapDropperSound, finalPosition);
+
         // Start a coroutine — each call runs independently
         StartCoroutine(SpawnAndMove(finalPosition));
     }

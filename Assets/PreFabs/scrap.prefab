@@ -66,6 +66,7 @@ GameObject:
   - component: {fileID: 9148121932704643124}
   - component: {fileID: 9175112134486263380}
   - component: {fileID: 6695913302253627997}
+  - component: {fileID: 5529850616675675364}
   m_Layer: 0
   m_Name: scrap
   m_TagString: Untagged
@@ -187,3 +188,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5529850616675675364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8582815901729256263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6323b370985bba4a99f9f712793869e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundEffectPrefab: {fileID: 5671066982752466845, guid: d0ebc999e4490834991b6a17337feba3, type: 3}
+  impactEffectPrefab: {fileID: 5296897682129849583, guid: 47a07413c87ddd1428e558b6274b60ee, type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8

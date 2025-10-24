@@ -6,6 +6,8 @@ using TMPro;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Reflection;
+using System.Collections.Generic;
 
 public class WinCameraController : MonoBehaviour
 {
@@ -52,9 +54,9 @@ public class WinCameraController : MonoBehaviour
         winCamera.Priority = 20;
 
         // Trigger animation on winner
-        //Animator anim = winner.GetComponent<Animator>();
-        //if (anim != null)
-        //    anim.SetTrigger("Win"); 
+        Animator anim = winner.GetComponent<Animator>();
+        if (anim != null)
+            anim.SetTrigger("Win");
 
         // Start UI sequence
         StartCoroutine(WinSequence(winner));
@@ -237,7 +239,7 @@ public class WinCameraController : MonoBehaviour
         SceneManager.LoadScene(current.name);
     }
 
-    public void DrawGameCam()
+    public void DrawGameCam(Transform[] players)
     {
         UIGamePlay.SetActive(false);
 
@@ -245,6 +247,13 @@ public class WinCameraController : MonoBehaviour
         winCamera.LookAt = drawLookAtSpotTrans;     // look at the center
 
         winCamera.Priority = 20;
+
+        foreach (var player in players)
+        {
+            Animator anim = player.GetComponent<Animator>();
+            if (anim != null)
+                anim.SetTrigger("Win");
+        }
 
         StartCoroutine(DrawSequence());
     }
@@ -258,7 +267,7 @@ public class WinCameraController : MonoBehaviour
         SetButtonVisible(rematchButton, false);
 
         // Show the Draw text
-        yield return new WaitForSeconds((showWinDelay + showNameDelay)/2);
+        yield return new WaitForSeconds((showWinDelay + showNameDelay) / 2);
         StartCoroutine(AnimateBounceFade(winText, winAnimDuration));
 
         // Wait before fade-out

@@ -8,23 +8,27 @@ public class Movement : MonoBehaviour
     public int playerNumber = 1;
     
     private Animator anim;
+    private AudioSource playerWalkAudioSource;
     private CharacterController controller;
-    
+    [HideInInspector] public bool canMove = true;
+
     private float moveSpeed = 5f;
-    private Enemy_Health player_Charger;
     private Vector3 moveDirection;
 
     void Start()
     {
+        playerWalkAudioSource = GetComponent<AudioSource>();
+
         controller = GetComponent<CharacterController>();
     
-        player_Charger = GetComponent<Enemy_Health>();
-        
         anim = GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (!canMove)
+            return;
+
         // Leitura de inputs dependendo do jogador
         float horizontal = 0f;
         float vertical = 0f;
@@ -48,6 +52,9 @@ public class Movement : MonoBehaviour
         anim.SetFloat("speed", moveDirection.magnitude);
         if (moveDirection.magnitude > 0f)
         {
+            if (!playerWalkAudioSource.isPlaying)
+                playerWalkAudioSource.Play();
+
             Vector3 movement = moveDirection * moveSpeed * Time.deltaTime;
 
             if (controller != null)
@@ -57,6 +64,11 @@ public class Movement : MonoBehaviour
 
             // Faz o jogador olhar na direção do movimento
             transform.forward = -moveDirection;
+        }
+        else
+        {
+            if (playerWalkAudioSource.isPlaying)
+                playerWalkAudioSource.Stop();
         }
     }
 }

@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class CountdownTimer : MonoBehaviour
 {
@@ -21,8 +22,11 @@ public class CountdownTimer : MonoBehaviour
 
         if (timer <= 0f)
         {
+            AudioManager.Instance.PlayOneShot(AudioManager.Instance.startEndRoundSound);
+            
             timer = 0f;
             running = false;
+
             EndGame();
         }
 
@@ -45,7 +49,13 @@ public class CountdownTimer : MonoBehaviour
         }
 
         if (winnerTrans == null)
-            winCamCtrlr.DrawGameCam();
+        {
+            Transform[] players = {
+                player2Health.transform,
+                player1Health.transform
+            };
+            winCamCtrlr.DrawGameCam(players);
+        }
         else
             winCamCtrlr.FocusOnWinner(winnerTrans);
     }

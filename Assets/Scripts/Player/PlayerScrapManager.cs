@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerScrapManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerScrapManager : MonoBehaviour
     private KeyCode scrapInput;
 
     private Animator anim;
+    [HideInInspector] public bool canThrowAndPickUp = true;
 
     private bool canPickUp = false;
     private Transform pickUpObjTrans = null;
@@ -20,7 +22,7 @@ public class PlayerScrapManager : MonoBehaviour
     private int scrapQty = 0;
     private readonly int scrapMaxQty = 2;
 
-    private float throwForce = 17.5f;
+    private float throwForce = 15f;
 
     private void OnTriggerStay(Collider other)
     {
@@ -57,6 +59,9 @@ public class PlayerScrapManager : MonoBehaviour
 
     private void Update()
     {
+        if (!canThrowAndPickUp)
+            return;
+
         if (Input.GetKeyDown(scrapInput))
         {
             if (canPickUp)
@@ -133,9 +138,9 @@ public class PlayerScrapManager : MonoBehaviour
         col.enabled = true;
         col.isTrigger = true;
 
-        bool objOnRight = objToThrow.parent.localPosition.x > 0f;
-        int side = objOnRight ? -1 : 1;
-        float angle = 10f * side;
+        bool objOnRight = objToThrow.parent.localPosition.x > 1f;
+        int side = objOnRight ? 1 : -1;
+        float angle = -10f * side;
 
         objToThrow.SetParent(null);
         Rigidbody objRb = objToThrow.GetComponent<Rigidbody>();

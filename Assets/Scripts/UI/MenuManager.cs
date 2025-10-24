@@ -7,12 +7,13 @@ public class MenuManager : MonoBehaviour
 {
     public void OnClickStartBtn()
     {
+        AudioManager.Instance.PlayOneShot(AudioManager.Instance.startEndRoundSound);
         SceneManager.LoadScene("Game");
     }
 
     public void OnOptionsBtn()
     {
-        SceneManager.LoadScene("Options");
+        SceneManager.LoadScene("Options_Menu");
     }
 
     public void OnClickExitBtn()
