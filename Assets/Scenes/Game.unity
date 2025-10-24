@@ -200,6 +200,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9281f753f5550d647904484af81b475b, type: 2}
+    - target: {fileID: 883341429309627751, guid: 30c3cfa5bad043b4685984dbfe037a11, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 953819257816256943, guid: 30c3cfa5bad043b4685984dbfe037a11, type: 3}
       propertyPath: scrapDropper
       value: 
@@ -2870,6 +2874,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4a29f25a5915c544391d58b62219002e, type: 2}
+    - target: {fileID: 883341429309627751, guid: 30c3cfa5bad043b4685984dbfe037a11, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 953819257816256943, guid: 30c3cfa5bad043b4685984dbfe037a11, type: 3}
       propertyPath: scrapDropper
       value: 
