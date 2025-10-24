@@ -42,11 +42,11 @@ public class PlayerAnimationController : MonoBehaviour
         // --- Ataque ---
         if (Input.GetMouseButtonDown(0)) // Botão esquerdo do rato
         {
-            anim.SetBool("Attack", true);
+            anim.SetBool("Attake", true);
         }
         else
         {
-            anim.SetBool("Attack", false);
+            anim.SetBool("Attake", false);
         }
 
         // --- Dano (só exemplo) ---

@@ -6,20 +6,23 @@ using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
+    private Animator anim;
+
     [SerializeField] private TextMeshProUGUI enemyPointsUI;
 
     public int pointsQty = 0;
 
     private void Start()
     {
-        if (gameObject.name.Contains("2"))
-            pointsQty = 2;
+        anim = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.ToLower().Contains("scrap"))
         {
+            anim.SetBool("Damage", true);
+
             pointsQty++;
             string pointsText = pointsQty.ToString();
             pointsText = pointsText.Replace("1", "I");

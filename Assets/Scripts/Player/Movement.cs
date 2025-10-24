@@ -6,7 +6,8 @@ public class Movement : MonoBehaviour
     [Header("Configurações de Jogador")]
     [Tooltip("1 = usa WASD | 2 = usa setas")]
     public int playerNumber = 1;
-
+    
+    private Animator anim;
     private CharacterController controller;
     
     private float moveSpeed = 5f;
@@ -18,6 +19,8 @@ public class Movement : MonoBehaviour
         controller = GetComponent<CharacterController>();
     
         player_Charger = GetComponent<Enemy_Health>();
+        
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -42,6 +45,7 @@ public class Movement : MonoBehaviour
         moveDirection = new Vector3(vertical, 0f, horizontal).normalized;
 
         // Mover o jogador
+        anim.SetFloat("speed", moveDirection.magnitude);
         if (moveDirection.magnitude > 0f)
         {
             Vector3 movement = moveDirection * moveSpeed * Time.deltaTime;

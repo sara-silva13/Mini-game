@@ -50,9 +50,9 @@ public class WinCameraController : MonoBehaviour
         winCamera.Priority = 20;
 
         // Trigger animation on winner
-        Animator anim = winner.GetComponent<Animator>();
-        if (anim != null)
-            anim.SetTrigger("Win"); 
+        //Animator anim = winner.GetComponent<Animator>();
+        //if (anim != null)
+        //    anim.SetTrigger("Win"); 
 
         // Start UI sequence
         StartCoroutine(WinSequence(winner));

@@ -11,6 +11,8 @@ public class PlayerScrapManager : MonoBehaviour
 
     private KeyCode scrapInput;
 
+    private Animator anim;
+
     private bool canPickUp = false;
     private Transform pickUpObjTrans = null;
     private Transform pickUpObj2Trans = null;
@@ -24,7 +26,6 @@ public class PlayerScrapManager : MonoBehaviour
     {
         if (scrapQty < scrapMaxQty && other.gameObject.name.ToLower().Contains("pickup"))
         {
-            Debug.Log("a");
             holdPickUpObj = other.transform.parent.transform;
 
             canPickUp = true;
@@ -43,6 +44,9 @@ public class PlayerScrapManager : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
+        anim.SetInteger("hands", scrapQty);
+
         playerMoveInfo = GetComponent<Movement>();
 
         if (playerMoveInfo.playerNumber == 1)
@@ -108,6 +112,7 @@ public class PlayerScrapManager : MonoBehaviour
         }
 
         scrapQty++;
+        anim.SetInteger("hands", scrapQty);
 
         //reset vars
         canPickUp = false;
@@ -115,6 +120,8 @@ public class PlayerScrapManager : MonoBehaviour
 
     private void Throw()
     {
+        anim.SetBool("Attake", true);
+
         Transform objToThrow;
 
         if (pickUpObj2Trans != null)
@@ -145,5 +152,6 @@ public class PlayerScrapManager : MonoBehaviour
             pickUpObjTrans = null;
 
         scrapQty--;
+        anim.SetInteger("hands", scrapQty);
     }
 }
