@@ -35,7 +35,7 @@ public class CountdownTimer : MonoBehaviour
         int player2Points = player2Health.pointsQty;
 
         Transform winnerTrans = null;
-        player1Points++; //!!! remove this
+
         if (player1Points != player2Points)
         {
             if (player1Points > player2Points)
@@ -45,12 +45,9 @@ public class CountdownTimer : MonoBehaviour
         }
 
         if (winnerTrans == null)
-        {
             winCamCtrlr.DrawGameCam();
-            return;
-        }
-
-        winCamCtrlr.FocusOnWinner(winnerTrans);
+        else
+            winCamCtrlr.FocusOnWinner(winnerTrans);
     }
 
     public void RestartTimer(float duration = 60f)

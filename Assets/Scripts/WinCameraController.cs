@@ -11,6 +11,8 @@ public class WinCameraController : MonoBehaviour
 {
     [Header("Camera")]
     [SerializeField] private CinemachineVirtualCamera winCamera;
+    [SerializeField] private Transform drawCamSpotTrans;
+    [SerializeField] private Transform drawLookAtSpotTrans;
 
     [Header("UI References")]
     [SerializeField] private GameObject UIGamePlay;
@@ -23,7 +25,7 @@ public class WinCameraController : MonoBehaviour
     [SerializeField] private float showWinDelay;
     [SerializeField] private float nameAnimDuration;
     [SerializeField] private float winAnimDuration;
-    
+
     [Header("Rematch Timing")]
     [SerializeField] private float fadeOutDuration;
     [SerializeField] private float rematchFadeInDuration;
@@ -187,16 +189,12 @@ public class WinCameraController : MonoBehaviour
             t += Time.deltaTime / duration;
             float alpha = Mathf.Lerp(1, 0, t);
             foreach (var g in groups)
-            {
                 if (g != null) g.alpha = alpha;
-            }
             yield return null;
         }
 
         foreach (var g in groups)
-        {
             if (g != null) g.alpha = 0;
-        }
     }
 
     private IEnumerator FadeInButton(Button button, float duration)
@@ -241,5 +239,36 @@ public class WinCameraController : MonoBehaviour
 
     public void DrawGameCam()
     {
+        UIGamePlay.SetActive(false);
+
+        winCamera.Follow = drawCamSpotTrans;
+        winCamera.LookAt = drawLookAtSpotTrans;     // look at the center
+
+        winCamera.Priority = 20;
+
+        StartCoroutine(DrawSequence());
     }
+
+    private IEnumerator DrawSequence()
+    {
+        // Reset UI instantly
+        ResetText(winText);
+        winText.text = "Draw!";
+
+        SetButtonVisible(rematchButton, false);
+
+        // Show the Draw text
+        yield return new WaitForSeconds((showWinDelay + showNameDelay)/2);
+        StartCoroutine(AnimateBounceFade(winText, winAnimDuration));
+
+        // Wait before fade-out
+        yield return new WaitForSeconds(showWinDelay + showNameDelay);
+
+        // Fade everything out
+        yield return FadeOutTexts(fadeOutDuration);
+
+        // Fade in rematch button
+        yield return FadeInButton(rematchButton, rematchFadeInDuration);
+    }
+
 }
