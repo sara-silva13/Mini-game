@@ -231,8 +231,6 @@ public class WinCameraController : MonoBehaviour
 
     public void OnRematchClicked()
     {
-        //!!! Play a sound
-
         // Reload the current scene
         Scene current = SceneManager.GetActiveScene();
         SceneManager.LoadScene(current.name);

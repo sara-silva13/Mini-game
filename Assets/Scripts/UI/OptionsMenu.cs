@@ -32,8 +32,8 @@ public class OptionsMenu : MonoBehaviour
     private Coroutine applyCoroutine = null;
     [SerializeField] private TextMeshProUGUI confirmationText; // assign in Inspector
     [SerializeField] private float animationDuration = 0.5f;
-    [SerializeField] private float yOffset = 30f; // how much it moves up
-    [SerializeField] private float scaleMultiplier = 1.2f;
+    [SerializeField] private float yOffset = 35f; // how much it moves up
+    [SerializeField] private float scaleMultiplier = 1.05f;
 
     private Vector3 initialPos;
     private Vector3 initialScale;
@@ -181,7 +181,7 @@ public class OptionsMenu : MonoBehaviour
         }
 
         // hold visible for a moment
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         // fade out and return to initial
         elapsed = 0f;

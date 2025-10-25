@@ -1,4 +1,5 @@
 ﻿using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CountdownTimer : MonoBehaviour
@@ -8,8 +9,19 @@ public class CountdownTimer : MonoBehaviour
     [SerializeField] private Enemy_Health player2Health;
 
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float timer = 5f;
+    [SerializeField] private Transform clockPointerTrans;
+    private float maxTimer;
+    [SerializeField] private float timer;
     private bool running = true;
+
+
+    public static bool useTextToDisplayTime = false;
+
+    private void Start()
+    {
+        maxTimer = timer;
+        useTextToDisplayTime = timerText.enabled;
+    }
 
     void Update()
     {
@@ -17,17 +29,21 @@ public class CountdownTimer : MonoBehaviour
 
         timer -= Time.deltaTime;
 
+        int time = Mathf.CeilToInt(timer);
+        if (useTextToDisplayTime)
+            timerText.text = time.ToString();
+
+        clockPointerTrans.eulerAngles = new Vector3(0f, 0f, Mathf.Lerp(0f, 360f, time / maxTimer));
+
         if (timer <= 0f)
         {
             AudioManager.Instance.PlayOneShot(AudioManager.Instance.startEndRoundSound);
-            
+
             timer = 0f;
             running = false;
 
             EndGame();
         }
-
-        timerText.text = Mathf.CeilToInt(timer).ToString();
     }
 
     private void EndGame()
