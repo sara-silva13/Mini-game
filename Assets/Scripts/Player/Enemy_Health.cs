@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour

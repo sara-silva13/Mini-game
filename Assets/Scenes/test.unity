@@ -1428,6 +1428,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.6855304
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.121
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4026093
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1934113265351642823, guid: 0cf02829823e0ef4397969d3f47c3cff, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.91
@@ -1459,22 +1475,6 @@ PrefabInstance:
     - target: {fileID: 8180017158892915379, guid: 0cf02829823e0ef4397969d3f47c3cff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.6855304
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.121
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.4026093
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: c15a7163b3af3fb48ab04d14494265ba, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

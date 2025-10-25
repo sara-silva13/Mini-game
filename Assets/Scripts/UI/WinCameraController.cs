@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 using Cinemachine;
-using System.Linq;
-using System.Xml.Schema;
 using TMPro;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Reflection;
-using System.Collections.Generic;
 
 public class WinCameraController : MonoBehaviour
 {
@@ -21,6 +17,7 @@ public class WinCameraController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI winnerNameText;
     [SerializeField] private TextMeshProUGUI winText;
     [SerializeField] private Button rematchButton;
+    [SerializeField] private Button leaveButton;
 
     [Header("Timing")]
     [SerializeField] private float showNameDelay;
@@ -71,7 +68,8 @@ public class WinCameraController : MonoBehaviour
         winText.text = "Win!";
 
         SetButtonVisible(rematchButton, false);
-
+        SetButtonVisible(leaveButton, false);
+        
         // Show the winner name
         yield return new WaitForSeconds(showNameDelay);
         StartCoroutine(AnimateTextFromBelow(winnerNameText, nameAnimDuration));
@@ -88,6 +86,7 @@ public class WinCameraController : MonoBehaviour
 
         // Fade in rematch button
         yield return FadeInButton(rematchButton, rematchFadeInDuration);
+        yield return FadeInButton(leaveButton, rematchFadeInDuration);
     }
 
     private void ResetText(TextMeshProUGUI text)
@@ -265,6 +264,7 @@ public class WinCameraController : MonoBehaviour
         winText.text = "Draw!";
 
         SetButtonVisible(rematchButton, false);
+        SetButtonVisible(leaveButton, false);
 
         // Show the Draw text
         yield return new WaitForSeconds((showWinDelay + showNameDelay) / 2);
@@ -278,6 +278,11 @@ public class WinCameraController : MonoBehaviour
 
         // Fade in rematch button
         yield return FadeInButton(rematchButton, rematchFadeInDuration);
+        yield return FadeInButton(leaveButton, rematchFadeInDuration);
     }
 
+    public void LeaveGame()
+    {
+        OptionsMenu.OnClickGoToMainMenu();
+    }
 }
